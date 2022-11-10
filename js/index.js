@@ -38,12 +38,31 @@ function removeProduct(event) {
   const target = event.currentTarget;
   console.log('The target in remove is:', target);
   //... your code goes here
+  console.log(event.path);
+
 }
 
 // ITERATION 5
 
 function createProduct() {
-  //... your code goes here
+  const productName = document.querySelector('.text-input').value;
+  const productPrice = document.querySelector('.number-input').value;
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <tr class="product">
+      <td class="name">
+        <span>${productName}</span>
+      </td>
+      <td class="price">$<span>${productPrice}</span></td>
+      <td class="quantity">
+        <input type="number" value="0" min="0" placeholder="Quantity" />
+      </td>
+      <td class="subtotal">$<span>0</span></td>
+      <td class="action">
+        <button class="btn btn-remove">Remove</button>
+      </td>
+    </tr>
+  `
 }
 
 window.addEventListener('load', () => {
@@ -51,4 +70,9 @@ window.addEventListener('load', () => {
   calculatePricesBtn.addEventListener('click', calculateAll);
 
   //... your code goes here
+  const removeBtn = document.querySelectorAll('.btn-remove');
+  removeBtn.forEach (btn => addEventListener('click', removeProduct));
+
+  const createBtn = document.getElementById('create');
+  createBtn.addEventListener('click', createProduct);
 });
